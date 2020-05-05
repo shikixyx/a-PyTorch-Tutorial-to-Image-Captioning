@@ -1,0 +1,37 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "*"
+black = "*"
+
+[packages]
+torch = "==1.4.0"
+torchvision = "==0.5.0"
+matplotlib = "==3.2.1"
+autopep8 = "==1.5.1"
+decorator = "==4.4.2"
+imageio = "==2.8.0"
+kiwisolver = "==1.2.0"
+networkx = "==2.4"
+numpy = "==1.18.2"
+pycodestyle = "==2.5.0"
+pyparsing = "==2.4.7"
+python-dateutil = "==2.8.1"
+scikit-image = "==0.16.2"
+scipy = "==1.1.0"
+six = "==1.14.0"
+Cycler = "==0.10.0"
+Pillow = "==7.1.1"
+PyWavelets = "==1.1.1"
+h5py = "*"
+tqdm = "*"
+nltk = "*"
+
+[requires]
+python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
