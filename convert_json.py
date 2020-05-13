@@ -1,4 +1,5 @@
 import json
+from collections import defaultdict
 from tqdm import tqdm
 
 stair_captions_dir = "/Users/hiroaki/Documents/30_UT/04S/6_Enshu3/1_Miyao/Tutorial For Image Captioning/stair_captions_v1.2/"
@@ -28,7 +29,7 @@ with open(data_coco, "r") as f:
     data = json.load(f)
 
 # 日本語キャプション
-stair_captions = {}
+stair_captions = defaultdict(list)
 for d in [train_tok, val_tok]:
     with open(stair_captions_dir + d, "r") as f:
         t = json.load(f)
@@ -36,7 +37,7 @@ for d in [train_tok, val_tok]:
         for img in t["annotations"]:
             cap = img["caption"]
             tok = img["tokenized_caption"].split()
-            stair_captions[img["image_id"]] = (cap, tok)
+            stair_captions[img["image_id"]].append((cap, tok))
 
 
 # imageid -> [0]:raw [1]:token
@@ -48,9 +49,11 @@ for i in tqdm(range(L)):
     imageid = filename.split("_")[2].split(".")[0]
     imageid = int(imageid)
 
-    cap, tok = stair_captions[imageid]
-    dct = {"tokens": tok, "row": cap}
-    data["images"][i]["sentences"] = [dct]
+    sentences = []
+    for cap, tok in stair_captions[imageid]:
+        dct = {"tokens": tok, "row": cap}
+        sentences.append(dct)
+    data["images"][i]["sentences"] = sentences
 
 
 output_dir = "/Users/hiroaki/Documents/30_UT/04S/6_Enshu3/1_Miyao/Tutorial For Image Captioning/data.json"
